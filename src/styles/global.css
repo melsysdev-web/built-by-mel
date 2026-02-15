@@ -28,7 +28,7 @@
     --font-body: 'Inter Variable', sans-serif;
     --background: oklch(0.97 0.005 285);
     --foreground: oklch(0.13 0.03 285);
-    --primary: oklch(0.47 0.24 276.5);
+    --primary: oklch(73.469% 0.18261 153.931 / 0.595);
     --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.77 0.13 192);
     --secondary-foreground: oklch(0.13 0.03 285);
@@ -50,7 +50,8 @@
     --surface-foreground: oklch(0.97 0.005 285);
     --shadow-glow-value: 0 0 20px rgba(71, 37, 244, 0.4);
     --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-    --color-border: oklch(0.23 0.03 285);
+    --color-border: oklch(0.90 0.005 285);
+
 }
 
 .bg-glass-panel {
