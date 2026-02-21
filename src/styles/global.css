@@ -23,35 +23,79 @@
 }
 
 :root {
+
+    /* Fuente principal para títulos grandes (hero, headings) */
     --font-display: 'Inter Variable', sans-serif;
+    /* Fuente para iconos tipo Material Symbols */
     --font-icon: 'Material Symbols Outlined Variable', sans-serif;
+    /* Fuente base para párrafos y texto general */
     --font-body: 'Inter Variable', sans-serif;
+
+    /* Fondo principal del sitio (modo claro en este caso) */
     --background: oklch(0.97 0.005 285);
+
+    /* Color principal del texto */
     --foreground: oklch(0.13 0.03 285);
     --primary: oklch(73.469% 0.18261 153.931 / 0.595);
+
+    /* Color del texto que va encima del primary (contraste) */
     --primary-foreground: oklch(1 0 0);
+
+    /* Variante alternativa para botones secundarios o badges */
     --secondary: oklch(0.77 0.13 192);
+    /* Texto encima del secondary */
     --secondary-foreground: oklch(0.13 0.03 285);
+
+
+    /* Fondo de cards, modulos o secciones elevadas */
     --surface: oklch(1 0 0);
+
+    /* Texto dentro de las superficies */
     --surface-foreground: oklch(0.13 0.03 285);
+
+    /* Glow suave (para hover en avatar, botones, etc.) */
     --shadow-glow-value: 0 0 20px rgba(71, 37, 244, 0.3);
+
+    /* Sombra estilo glassmorphism (efecto vidrio) */
     --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+    /* Color estándar para bordes, divisores e inputs */
     --color-border: oklch(0.90 0.005 285);
 }
 
 .dark {
+    /* Fondo principal del sitio (oscuro) */
     --background: oklch(0.13 0.03 285);
-    --foreground: oklch(0.97 0.005 285);
-    --primary: oklch(0.47 0.24 276.5);
-    --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.77 0.13 192);
-    --secondary-foreground: oklch(0.13 0.03 285);
-    --surface: oklch(0.17 0.04 285);
-    --surface-foreground: oklch(0.97 0.005 285);
-    --shadow-glow-value: 0 0 20px rgba(71, 37, 244, 0.4);
-    --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-    --color-border: oklch(0.90 0.005 285);
 
+    /* Color principal del texto */
+    --foreground: oklch(0.96 0.01 155);
+
+    /* Color principal de marca (verde) */
+    --primary: oklch(0.77 0.13 192);
+
+    /* Color del texto que va encima del primary */
+    --primary-foreground: oklch(10.823% 0.02264 165.41);
+
+    /* Color secundario (para botones o elementos alternativos) */
+    --secondary: oklch(0.75 0.16 150);
+
+    /* Texto encima del secondary */
+    --secondary-foreground: oklch(0.13 0.03 285);
+
+    /* Fondo de tarjetas, navbar o secciones elevadas */
+    --surface: oklch(0.17 0.04 285);
+
+    /* Texto dentro de las tarjetas o superficies */
+    --surface-foreground: oklch(0.97 0.005 285);
+
+    /* Sombra con efecto brillo (glow) */
+    --shadow-glow-value: 0 0 20px rgba(71, 37, 244, 0.4);
+
+    /* Sombra tipo vidrio (glass effect) */
+    --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+
+    /* Color estándar para bordes */
+    --color-border: oklch(0.23 0.03 285);
 }
 
 .bg-glass-panel {

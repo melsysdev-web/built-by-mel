@@ -8,11 +8,14 @@ import profile from "../assets/profile.png";
         <!-- Avatar -->
         <div class="relative group">
             <div
-                class="absolute -inset-1 bg-primary/20 rounded-full blur transition group-hover:bg-primary/30"
+                class="absolute -inset-2 rounded-full
+              bg-primary/40 blur-lg
+              opacity-0 transition duration-300
+              group-hover:opacity-100"
             >
             </div>
             <div
-                class="relative size-36 rounded-full border-2 border-border overflow-hidden bg-surface bg-center">
+                class="relative size-28 rounded-full border-2 border-border-dark overflow-hidden bg-surface-dark bg-center bg-cover">
                 <Image
                     src={profile}
                     alt="Professional headshot of a systems engineer"
@@ -40,7 +43,7 @@ import profile from "../assets/profile.png";
             <!-- Buttons -->
             <div class="pt-4 flex flex-wrap justify-center gap-4">
                 <a
-                    class="px-8 py-3 rounded-lg bg-primary text-primary-foreground font-bold shadow-glow hover:opacity-90 transition-all"
+                    class="px-8 py-3 rounded-lg bg-primary text-secondary-foreground font-bold shadow-glow hover:opacity-90 transition-all"
                     href="#contact">
                     Get in Touch
                 </a>
