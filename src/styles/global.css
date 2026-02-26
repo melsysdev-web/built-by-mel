@@ -71,13 +71,13 @@
     --foreground: oklch(0.96 0.01 155);
 
     /* Color principal de marca (verde) */
-    --primary: oklch(0.77 0.13 192);
+    --primary: oklch(0.7 0.13 192);
 
     /* Color del texto que va encima del primary */
     --primary-foreground: oklch(10.823% 0.02264 165.41);
 
     /* Color secundario (para botones o elementos alternativos) */
-    --secondary: oklch(0.75 0.16 150);
+    --secondary: oklch(66.542% 0.08301 235.837);
 
     /* Texto encima del secondary */
     --secondary-foreground: oklch(0.13 0.03 285);
@@ -95,7 +95,7 @@
     --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
 
     /* Color estándar para bordes */
-    --color-border: oklch(0.23 0.03 285);
+    --color-border: oklch(84.891% 0.03046 285.695);
 }
 
 .bg-glass-panel {

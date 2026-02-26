@@ -1,0 +1,38 @@
+---
+import NavbarBrand from "./NavbarBrand.astro";
+import NavbarLinks from "./NavbarLinks.astro";
+import MobileMenuButton from "./MobileMenuButton.astro";
+import MobileMenu from "./MobileMenu.astro";
+---
+
+<header class="fixed top-0 w-full z-50 border-color-border bg-glass-panel">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+        <NavbarBrand />
+
+        <nav class="hidden md:flex items-center gap-10">
+            <NavbarLinks />
+        </nav>
+
+        <div class="md:hidden">
+            <MobileMenuButton />
+        </div>
+    </div>
+
+    <MobileMenu />
+</header>
+
+<script is:inline>
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+
+    mobileMenuBtn?.addEventListener("click", () => {
+        mobileMenu?.classList.toggle("hidden");
+    });
+
+    mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            mobileMenu?.classList.add("hidden");
+        });
+    });
+</script>
