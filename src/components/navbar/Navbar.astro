@@ -3,17 +3,19 @@ import NavbarBrand from "./NavbarBrand.astro";
 import NavbarLinks from "./NavbarLinks.astro";
 import MobileMenuButton from "./MobileMenuButton.astro";
 import MobileMenu from "./MobileMenu.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<header class="fixed top-0 w-full z-50 border-color-border bg-glass-panel">
+<header class="fixed top-0 w-full z-50 border border-border bg-glass-panel">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
         <NavbarBrand />
+        <ThemeToggle />
 
         <nav class="hidden md:flex items-center gap-10">
             <NavbarLinks />
         </nav>
 
-        <div class="md:hidden">
+        <div class="md:hidden flex items-center gap-4">
             <MobileMenuButton />
         </div>
     </div>
