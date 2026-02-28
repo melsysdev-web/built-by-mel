@@ -70,7 +70,7 @@
     /* Color principal del texto */
     --foreground: oklch(0.96 0.01 155);
 
-    /* Color principal de marca (verde) */
+    /* Color principal de marca */
     --primary: oklch(0.7 0.13 192);
 
     /* Color del texto que va encima del primary */
@@ -95,9 +95,26 @@
     --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
 
     /* Color estándar para bordes */
-    --color-border: oklch(84.891% 0.03046 285.695);
+    --color-border: oklch(63.9% 0.0104 286.006 / 0.327);
 }
 
 .bg-glass-panel {
     @apply bg-surface/50 backdrop-blur-md;
+}
+
+/* button Get in Touch*/
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
 }
