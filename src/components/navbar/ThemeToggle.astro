@@ -1,5 +1,48 @@
-<button id="theme-toggle">
-  <span id="theme-icon" class="font-icon">
-    dark_mode
-  </span>
+<button
+  id="theme-toggle"
+  class="p-2 rounded-lg transition-colors duration-300 hover:bg-muted"
+  aria-label="Toggle theme">
+  <span id="theme-icon" class="font-icon text-xl"> dark_mode </span>
 </button>
+
+<script>
+  const html = document.documentElement;
+  const toggleBtn = document.getElementById("theme-toggle");
+  const icon = document.getElementById("theme-icon");
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function updateIcon() {
+    if (!icon) return;
+    icon.textContent = html.classList.contains("dark")
+      ? "light_mode"
+      : "dark_mode";
+  }
+
+  function setTheme(theme: "dark" | "light") {
+    if (theme === "dark") {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+    updateIcon();
+  }
+
+  // Estado inicial del icono
+  updateIcon();
+
+  // Click manual
+  toggleBtn?.addEventListener("click", () => {
+    const newTheme = html.classList.contains("dark") ? "light" : "dark";
+    setTheme(newTheme);
+  });
+
+  // Cambio automático SOLO si el usuario no eligió manualmente
+  mediaQuery.addEventListener("change", (e) => {
+    if (!localStorage.getItem("theme")) {
+      html.classList.toggle("dark", e.matches);
+      updateIcon();
+    }
+  });
+</script>
