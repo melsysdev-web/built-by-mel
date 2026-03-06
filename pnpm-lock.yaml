@@ -26,6 +26,9 @@ importers:
       astro:
         specifier: ^5.17.1
         version: 5.17.2(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.57.1)(typescript@5.9.3)
+      nodemailer:
+        specifier: ^8.0.1
+        version: 8.0.1
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -1458,6 +1461,10 @@ packages:
 
   node-mock-http@1.0.4:
     resolution: {integrity: sha512-8DY+kFsDkNXy1sJglUfuODx1/opAGJGyrTuFqEoN90oRc2Vk0ZbD4K2qmKXBBEhZQzdKHIVfEJpDU8Ak2NJEvQ==}
+
+  nodemailer@8.0.1:
+    resolution: {integrity: sha512-5kcldIXmaEjZcHR6F28IKGSgpmZHaF1IXLWFTG+Xh3S+Cce4MiakLtWY+PlBU69fLbRa8HlaGIrC/QolUpHkhg==}
+    engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -3351,6 +3358,8 @@ snapshots:
   node-fetch-native@1.6.7: {}
 
   node-mock-http@1.0.4: {}
+
+  nodemailer@8.0.1: {}
 
   normalize-path@3.0.0: {}
 

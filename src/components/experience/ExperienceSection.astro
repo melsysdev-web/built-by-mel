@@ -1,0 +1,41 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const experiences = [
+    {
+        role: "Principal Systems Engineer",
+        company: "TechCorp Infrastructure Solutions",
+        period: "2021 — PRESENT",
+        highlights: [
+            "Leading a team of 12 engineers in migrating legacy monolithic architecture to distributed microservices.",
+            "Achieved 99.999% uptime across global availability zones through automated failover implementations.",
+            "Reduced operational overhead by 35% using custom internal developer platform tools.",
+        ],
+        active: true,
+    },
+    {
+        role: "Senior DevOps Specialist",
+        company: "Cloud Scale Dynamics",
+        period: "2018 — 2021",
+        highlights: [
+            "Implemented immutable infrastructure patterns using HashiCorp stack.",
+            "Managed 2000+ Kubernetes nodes across multiple hybrid-cloud environments.",
+            "Standardized container security protocols reducing vulnerabilities by 60%.",
+        ],
+        active: false,
+    },
+];
+---
+
+<section class="max-w-6xl mx-auto px-6 py-24" id="experience">
+    <div class="flex items-center justify-between mb-16">
+        <h2 class="text-2xl font-bold text-foreground">Experience</h2>
+        <span class="text-xs font-mono text-surface-foreground/70">
+            02 / CAREER
+        </span>
+    </div>
+
+    <div class="space-y-12">
+        {experiences.map((exp) => <ExperienceItem {...exp} />)}
+    </div>
+</section>

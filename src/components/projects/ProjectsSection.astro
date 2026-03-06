@@ -39,7 +39,8 @@ const projects = [
       <h2 class="text-2xl font-bold text-foreground">Selected Projects</h2>
 
       <span
-        class="text-[10px] md:text-xs font-mono text-surface-foreground/60 whitespace-nowrap">
+        class="text-[10px] md:text-xs font-mono text-surface-foreground/60 whitespace-nowrap"
+      >
         01 / ARCHITECTURE
       </span>
     </div>
@@ -49,7 +50,6 @@ const projects = [
       Technical solutions for complex distributed challenges.
     </p>
   </div>
-
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {projects.map((project) => <ProjectCard {...project} />)}
   </div>

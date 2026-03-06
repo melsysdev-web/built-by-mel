@@ -20,7 +20,7 @@ const { title, description, image, alt, tags } = Astro.props;
             src={image}
             alt={alt}
             loading="lazy"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
     </div>
 
@@ -28,9 +28,7 @@ const { title, description, image, alt, tags } = Astro.props;
         {title}
     </h3>
 
-    <p
-        class="text-sm text-surface-foreground/70 mb-6 flex-grow leading-relaxed"
-    >
+    <p class="text-sm text-surface-foreground/70 mb-6 flex-1 leading-relaxed">
         {description}
     </p>
 
