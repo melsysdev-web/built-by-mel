@@ -4,6 +4,7 @@ import "@fontsource/material-icons-outlined";
 import "@fontsource-variable/material-symbols-outlined";
 import "../styles/global.css";
 import Navbar from "../components/navbar/Navbar.astro";
+import Footer from "../components/footer/Footer.astro";
 ---
 
 <!doctype html>
@@ -15,50 +16,26 @@ import Navbar from "../components/navbar/Navbar.astro";
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>Portfolio Melvin Rodriguez</title>
+    <script is:inline>
+      (() => {
+        const theme = localStorage.getItem("theme");
+
+        if (
+          theme === "dark" ||
+          (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
   </head>
   <body class="bg-background text-foreground font-body m-0 h-full w-full">
     <Navbar />
     <main class="pt-20">
-    <slot />
-<script is:inline>//script mode-dark
-  const html = document.documentElement;
-  const toggleBtn = document.getElementById("theme-toggle");
-  const icon = document.getElementById("theme-icon");
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-  function applyTheme(theme) {
-    if (theme === "dark") {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-    updateIcon();
-  }
-
-  function updateIcon() {
-    if (!icon) return;
-    icon.textContent = html.classList.contains("dark")
-      ? "light_mode"
-      : "dark_mode";
-  }
-
-  // Initial state of the icon
-  updateIcon();
-
-  // Click manual
-  toggleBtn?.addEventListener("click", () => {
-    const newTheme = html.classList.contains("dark") ? "light" : "dark";
-    applyTheme(newTheme);
-  });
-
-  // If the user did not choose manually and the system changes
-  mediaQuery.addEventListener("change", (e) => {
-    if (!localStorage.getItem("theme")) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
-  });
-</script>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

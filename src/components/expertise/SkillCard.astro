@@ -1,0 +1,32 @@
+---
+interface Item {
+    name: string;
+    level: string;
+}
+
+interface Props {
+    title: string;
+    icon: string;
+    items: Item[];
+}
+
+const { title, icon, items } = Astro.props;
+---
+
+<div class="space-y-4">
+    <h4 class="text-foreground font-semibold flex items-center gap-2">
+        <span class="font-icon text-primary text-xl">{icon}</span>
+        {title}
+    </h4>
+
+    <ul class="space-y-2 text-sm text-foreground/60">
+        {
+            items.map((item) => (
+                <li class="flex justify-between border-b border-border/40 pb-2">
+                    <span>{item.name}</span>
+                    <span class="text-primary/60">{item.level}</span>
+                </li>
+            ))
+        }
+    </ul>
+</div>

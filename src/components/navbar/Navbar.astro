@@ -7,20 +7,34 @@ import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header class="fixed top-0 w-full z-50 border border-border bg-glass-panel">
-    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <NavbarBrand />
+  <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+
+    <!-- Brand -->
+    <NavbarBrand />        
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-10">
+      <NavbarLinks />
+    </nav>
+
+    <!-- Right Actions (Toggle + Mobile Button) -->
+    <div class="flex items-center gap-4">
+      
+      <!-- Theme Toggle (visible always) -->
+      <div class="flex items-center justify-center">
         <ThemeToggle />
+      </div>
 
-        <nav class="hidden md:flex items-center gap-10">
-            <NavbarLinks />
-        </nav>
+      <!-- Mobile Menu Button (only mobile) -->
+      <div class="md:hidden flex items-center justify-center">
+        <MobileMenuButton />
+      </div>
 
-        <div class="md:hidden flex items-center gap-4">
-            <MobileMenuButton />
-        </div>
     </div>
 
-    <MobileMenu />
+  </div>
+
+  <MobileMenu />
 </header>
 
 <script is:inline>
