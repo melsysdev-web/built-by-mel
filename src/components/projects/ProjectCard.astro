@@ -1,8 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 interface Props {
     title: string;
     description: string;
-    image: string;
+    image: ImageMetadata;
     alt: string;
     tags: string[];
 }
@@ -11,34 +14,39 @@ const { title, description, image, alt, tags } = Astro.props;
 ---
 
 <div
-    class="group flex flex-col p-6 rounded-xl bg-surface border border-border hover:border-primary/40 hover:-translate-y-1 shadow-sm hover:shadow-md transition-all duration-300"
->
+    class="group flex flex-col p-6 rounded-xl bg-surface border border-border hover:border-primary/40 hover:-translate-y-1 shadow-sm hover:shadow-md transition-all duration-300">
+    <!-- Project Image -->
     <div
-        class="w-full aspect-video rounded-lg mb-6 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500"
+    class="w-full h-48 flex items-center justify-center aspect-video rounded-lg mb-6 overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500"
     >
-        <img
-            src={image}
-            alt={alt}
-            loading="lazy"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+    <Image
+        src={image}
+        alt={alt}
+        loading="lazy"
+        class="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
+    />
     </div>
 
+    <!-- Project Information -->
     <h3 class="text-lg font-semibold text-foreground mb-2">
         {title}
     </h3>
 
-    <p class="text-sm text-surface-foreground/70 mb-6 flex-1 leading-relaxed">
+    <p
+        class="text-sm text-surface-foreground/70 mb-6 flex-1 leading-relaxed">
         {description}
     </p>
 
+    <!-- Technologies -->
     <div class="flex flex-wrap gap-2">
         {
             tags.map((tag) => (
-                <span class="text-[10px] px-2 py-1 rounded bg-border text-surface-foreground font-mono">
+                <span
+                    class="text-[10px] px-2 py-1 rounded bg-border text-surface-foreground font-mono">
                     {tag}
                 </span>
             ))
         }
     </div>
 </div>
+

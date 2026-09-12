@@ -1,56 +1,69 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
 
+import project1 from "../../assets/project1.webp";
+import project2 from "../../assets/projectv2.webp";
+import project3 from "../../assets/chatbot.webp";
+
 const projects = [
-  {
-    title: "Global Edge Optimizer",
-    description:
-      "Reduced global latency by 40% through custom load balancing algorithms and edge-side caching.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAge_IFMdbmJNb3zDDtHh9ullsonkgytkkw4Ky5qkQ6TuhOoOyFkK4jn3EO0OXzOUvg9vGMFXws0dIas1OQ12QQ2xHaFbmFl5rRGqWMvyK5IV5wVZGkorideQ7kLzSRtgWXIp4AJBJF_wJcBNbR5qPaDCrgHKHYi00TGUT7okqzqrPDzLOi9X3rGM0c-HOvzlkWd7MiQ4pliqZhMQwudAAB7YoFr-uBV2WQQryIfwofMJY1-r-VWKbDmKJBjb8QW2NZs5IEHStH2NQ",
-    alt: "Abstract visualization of a high-scale server network",
-    tags: ["GO", "AWS", "K8S"],
-  },
-  {
-    title: "Zero-Trust Mesh",
-    description:
-      "Architected a secure distributed mesh network for sensitive financial transactions across regions.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD6mGZP5Xnjxm9nOPd_pz5YusazEA1k2eoEYJKoYHYQKNKVfBXX9ttdxqLoQkk-JKPMWJgFagy3JzYiw_G33XNvJxP7V35VUhD56TWIRhAoXscsinQ01eTEBywdafBQyVEbqLfnTZYy-W1GH0SMEqjgcul0NkQA74zFJxe9kfJHvgOx4aOGDYdd4Xr636AoQhnApnESrhY4HfIGcMtJvAOm77LySaro8yFV_eT093_3fDVztUrV6CyaardZ6KiHlRGLQIpF_wkUytU",
-    alt: "Technical blueprint of a mesh network structure",
-    tags: ["RUST", "GRPC", "DOCKER"],
-  },
-  {
-    title: "Auto-Scaling Engine",
-    description:
-      "Intelligent provisioning engine that reduced cloud spend by $1.2M annually via predictive scaling.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDk2WbBNMOOTWXXUc4tvHyLQFAMhbPAHR5LTdr34TChYxtPUxO7JwV_DTeF7pXjs_nyA2-CfLTNT-YcC88OIyt-5cRXjGL6GYYQ9_A4gxe6_g7DryrTXUQu-CabPqBtPGNjrE76bJehUingYtXuiwqmgEueE4L9Brpx6i2XCDiFOSg2cvDrZ1rqBd6qtSsLkS9fVhZEhC3jUT47XqLuxArXEcnaGyQyevVzj-pD5MLhjYyaEew6e4gJCarPPtzeCOXzTGfN_rGO0lU",
-    alt: "Clean visualization of cloud infrastructure components",
-    tags: ["PYTHON", "TERRAFORM", "AZURE"],
-  },
+    {
+        title: "Development Team Website",
+        description:
+            "Modern development team website built with Astro, featuring a responsive interface, clean component architecture, and a performance-focused design.",
+        image: project1,
+        alt: "Development team website interface",
+        tags: ["ASTRO", "CSS", "JAVASCRIPT", "COLLABORATIVE", "TAILWIND"],
+    },
+    {
+        title: "AI Phishing Detection Extension",
+        description:
+            "AI-powered browser extension designed to detect phishing websites by analyzing URLs and identifying potential security threats in real time.",
+        image: project2,
+        alt: "AI phishing detection browser extension",
+        tags: ["PYTHON", "JAVASCRIPT", "DOCKER", "AI", "COLLABORATIVE"],
+    },
+     {
+        title: "Technology Store AI Chatbot",
+        description:
+            "AI-powered chatbot built with Python to assist customers with technology products, answer questions, and provide personalized recommendations.",
+        image: project3,
+        alt: "AI chatbot for a technology store",
+        tags: ["PYTHON", "AI", "NLP"],
+    },
 ];
 ---
 
 <section class="max-w-6xl mx-auto px-6 py-24" id="projects">
-  <div class="mb-16">
-    <!-- Fila superior: título + span -->
-    <div class="flex items-center justify-between">
-      <h2 class="text-2xl font-bold text-foreground">Selected Projects</h2>
 
-      <span
-        class="text-[10px] md:text-xs font-mono text-surface-foreground/60 whitespace-nowrap"
-      >
-        01 / ARCHITECTURE
-      </span>
+    <div class="mb-16">
+
+        <!-- Fila superior: título + número de sección -->
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-foreground">
+                Selected Projects
+            </h2>
+
+            <span
+                class="text-[10px] md:text-xs font-mono text-surface-foreground/60 whitespace-nowrap"
+            >
+                02 / ARCHITECTURE
+            </span>
+        </div>
+
+        <!-- Descripción de la sección -->
+        <p class="text-surface-foreground mt-3 max-w-xl">
+            Technical solutions for complex distributed challenges.
+        </p>
+
     </div>
 
-    <!-- Párrafo debajo -->
-    <p class="text-surface-foreground mt-3 max-w-xl">
-      Technical solutions for complex distributed challenges.
-    </p>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {projects.map((project) => <ProjectCard {...project} />)}
-  </div>
+    <!-- Project grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+            projects.map((project) => (
+                <ProjectCard {...project} />
+            ))
+        }
+    </div>
+
 </section>

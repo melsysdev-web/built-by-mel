@@ -1,0 +1,77 @@
+---
+import CertificationCard from "./CertificationCard.astro";
+
+import Python from "../../assets/certifications/python.webp";
+import Big from "../../assets/certifications/3.webp";
+import Rally from "../../assets/certifications/4.webp";
+import Clic from "../../assets/certifications/2.webp";
+
+
+
+const certifications = [
+    {
+        title: "Python Essentials Cisco Networking Academy",
+        issuer: "Best Practices in Programming, Computer Programming, Python, Procedural Programming, Analytical Thinking, Basic Python Programming, Design, Develop, and Debug Scripts, Algorithmic Thinking, Entry-level",
+        year: "2026",
+        image: Python,
+        alt: "Python Essentials 1",
+        link: "#",
+    },
+    {
+        title: "Desarrollo con IA BIG School",
+        issuer: "Learning to program using Artificial Intelligence agents, prompts, workspace, quality triangle: context, model, and permissions.",
+        year: "2026",
+        image: Big,
+        alt: "Inicializacion desarrollo con IA",
+        link: "#",
+    },
+    {
+        title: "Rally Latinoamerica de INNOVACION",
+        issuer: "It is an international competition aimed at promoting open innovation among university students. It is conducted by multidisciplinary teams and simultaneously in Latin American countries over 28 consecutive hours.",
+        year: "2024",
+        image: Rally,
+        alt: "Rally Latinoamerica de INNOVACION",
+        link: "#",
+    },
+    {
+        title: "Congreso CLIC: Conectados hacia el futuro",
+        issuer: "BIG Impact of Artificial Intelligence on the Labor Market and Cybersecurity",
+        year: "2026",
+        image: Clic,
+        alt: "Inicializacion desarrollo con IA",
+        link: "#",
+    },
+];
+---
+
+<section
+    class="max-w-6xl mx-auto px-6 py-24 border-t border-border/30"
+    id="certifications"
+>
+    <div class="flex items-center justify-between mb-16">
+        <div>
+            <h2 class="text-2xl font-bold text-foreground mb-2">
+                Certifications & Credentials
+            </h2>
+
+            <p class="text-surface-foreground max-w-xl">
+                Professional certifications and credentials that support my
+                technical skills and continuous learning.
+            </p>
+        </div>
+
+        <span
+            class="hidden md:block text-xs font-mono text-surface-foreground/60"
+        >
+            03 / CREDENTIALS
+        </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+            certifications.map((certification) => (
+                <CertificationCard {...certification} />
+            ))
+        }
+    </div>
+</section>
