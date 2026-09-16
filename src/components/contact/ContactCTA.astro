@@ -1,7 +1,31 @@
+---
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const translations = {
+    en: {
+        title: "Ready to scale?",
+        description:
+            "I build reliable and scalable digital solutions by combining systems engineering, software development, artificial intelligence, and technology-driven problem solving.",
+    },
+    es: {
+        title: "¿Listo para llevar tu proyecto al siguiente nivel?",
+        description:
+            "Construyo soluciones digitales confiables y escalables combinando ingeniería de sistemas, desarrollo de software, inteligencia artificial y resolución de problemas impulsada por la tecnología.",
+    },
+};
+
+const t = translations[lang];
+---
+
 <h2 class="text-3xl md:text-5xl font-bold text-foreground mb-6">
-    Ready to scale?
+    {t.title}
 </h2>
 
 <p class="text-foreground text-lg mb-10 max-w-xl">
-    I build reliable and scalable digital solutions by combining systems engineering, software development, artificial intelligence, and technology-driven problem solving.
+    {t.description}
 </p>
+

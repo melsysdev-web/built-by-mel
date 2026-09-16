@@ -4,37 +4,50 @@ import NavbarLinks from "./NavbarLinks.astro";
 import MobileMenuButton from "./MobileMenuButton.astro";
 import MobileMenu from "./MobileMenu.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import LanguageToggle from "./LanguageToggle.astro";
+
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
 ---
 
-<header class="fixed top-0 w-full z-50 border border-border bg-glass-panel">
-  <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+<header
+    class="fixed inset-x-0 top-0 z-50 w-full border-b border-border bg-glass-panel"
+>
+    <div
+        class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between"
+    >
+        <!-- Brand -->
+        <NavbarBrand />
 
-    <!-- Brand -->
-    <NavbarBrand />        
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-10">
+            <NavbarLinks lang={lang} />
+        </nav>
 
-    <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-10">
-      <NavbarLinks />
-    </nav>
+        <!-- Right Actions -->
+        <div class="flex items-center gap-4">
+            <!-- Theme Toggle -->
+            <div class="flex items-center justify-center">
+                <ThemeToggle />
+            </div>
 
-    <!-- Right Actions (Toggle + Mobile Button) -->
-    <div class="flex items-center gap-4">
-      
-      <!-- Theme Toggle (visible always) -->
-      <div class="flex items-center justify-center">
-        <ThemeToggle />
-      </div>
+            <!-- Language Toggle -->
+            <div class="flex items-center justify-center">
+                <LanguageToggle lang={lang} />
+            </div>
 
-      <!-- Mobile Menu Button (only mobile) -->
-      <div class="md:hidden flex items-center justify-center">
-        <MobileMenuButton />
-      </div>
-
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center justify-center">
+                <MobileMenuButton />
+            </div>
+        </div>
     </div>
 
-  </div>
-
-  <MobileMenu />
+    <!-- Mobile Menu -->
+    <MobileMenu lang={lang} />
 </header>
 
 <script is:inline>

@@ -1,38 +1,147 @@
 ---
 ---
 
-<button
-    id="theme-toggle"
-    class="relative w-14 h-7 rounded-full border border-border bg-surface transition-colors duration-300 hover:border-primary/50"
-    aria-label="Toggle theme"
-    type="button"
->
-    <span
-        id="theme-icon"
-        class="absolute top-1 left-1 size-5 rounded-full bg-primary text-background flex items-center justify-center font-icon text-sm transition-transform duration-300"
-    >
-        dark_mode
+<label class="ui-switch" aria-label="Toggle theme">
+    <input
+        id="theme-toggle"
+        type="checkbox"
+    />
+
+    <span class="slider">
+        <span class="circle"></span>
     </span>
-</button>
+</label>
 
-<script>
-    const html = document.documentElement;
-    const toggleBtn = document.getElementById("theme-toggle");
-    const icon = document.getElementById("theme-icon");
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+<style>
+    .ui-switch {
+        --switch-bg: var(--color-border);
+        --switch-width: 48px;
+        --switch-height: 20px;
 
-    function updateIcon() {
-        if (!icon) return;
+        --circle-diameter: 32px;
+        --circle-bg: var(--color-primary);
+        --circle-inset: calc(
+            (var(--circle-diameter) - var(--switch-height)) / 2
+        );
 
-        const isDark = html.classList.contains("dark");
-
-        icon.textContent = isDark ? "dark_mode" : "light_mode";
-
-        icon.classList.toggle("translate-x-7", !isDark);
-        icon.classList.toggle("translate-x-0", isDark);
+        display: inline-flex;
+        align-items: center;
     }
 
-    function setTheme(theme: "dark" | "light") {
+    .ui-switch input {
+        display: none;
+    }
+
+    .slider {
+        appearance: none;
+        width: var(--switch-width);
+        height: var(--switch-height);
+        background: var(--switch-bg);
+        border-radius: 999px;
+        position: relative;
+        cursor: pointer;
+
+        transition:
+            background-color 300ms ease,
+            border-color 300ms ease;
+    }
+
+    .slider .circle {
+        top: calc(var(--circle-inset) * -1);
+        left: 0;
+
+        width: var(--circle-diameter);
+        height: var(--circle-diameter);
+
+        position: absolute;
+
+        background: var(--circle-bg);
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition:
+            left 250ms cubic-bezier(0.4, 0, 0.2, 1),
+            transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+            background-color 300ms ease;
+
+        box-shadow:
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Icono del sol */
+    .slider .circle::after {
+        content: "light_mode";
+
+        font-family: "Material Symbols Outlined Variable";
+        font-size: 17px;
+        color: var(--color-background);
+
+        transition:
+            transform 300ms ease,
+            opacity 200ms ease;
+    }
+
+    /* LIGHT → DARK */
+    .ui-switch input:checked + .slider {
+        background: var(--color-surface);
+    }
+
+    .ui-switch input:checked + .slider .circle {
+        left: calc(100% - var(--circle-diameter));
+    }
+
+    /* Icono de luna */
+    .ui-switch input:checked + .slider .circle::after {
+        content: "dark_mode";
+    }
+
+    /* Efecto al presionar */
+    .ui-switch input:active + .slider .circle {
+        transform: scale(0.88);
+    }
+
+    /* Hover */
+    .ui-switch:hover .circle {
+        box-shadow:
+            0 0 0 4px color-mix(
+                in srgb,
+                var(--color-primary) 15%,
+                transparent
+            ),
+            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .slider,
+        .slider .circle,
+        .slider .circle::after {
+            transition: none;
+        }
+    }
+</style>
+
+<script is:inline>
+    const html = document.documentElement;
+    const toggle = document.getElementById("theme-toggle");
+    const loader = document.getElementById("page-loader");
+
+    const mediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+    );
+
+    function updateToggle() {
+        if (!toggle) return;
+
+        toggle.checked = html.classList.contains("dark");
+    }
+
+    function setTheme(theme) {
         if (theme === "dark") {
             html.classList.add("dark");
             localStorage.setItem("theme", "dark");
@@ -41,23 +150,54 @@
             localStorage.setItem("theme", "light");
         }
 
-        updateIcon();
+        updateToggle();
     }
 
-    updateIcon();
+    /*
+     * Estado inicial
+     */
+    updateToggle();
 
-    toggleBtn?.addEventListener("click", () => {
-        const newTheme = html.classList.contains("dark")
-            ? "light"
-            : "dark";
+    /*
+     * Cambio manual
+     */
+    toggle?.addEventListener("change", () => {
+        const newTheme = toggle.checked
+            ? "dark"
+            : "light";
 
-        setTheme(newTheme);
+        /*
+         * Mostrar loader
+         */
+        if (loader) {
+            loader.classList.remove("hidden");
+            loader.classList.add("flex");
+        }
+
+        /*
+         * Pequeña pausa para que
+         * la animación del loader sea visible
+         */
+        setTimeout(() => {
+            setTheme(newTheme);
+
+            /*
+             * Ocultar loader
+             */
+            setTimeout(() => {
+                loader?.classList.remove("flex");
+                loader?.classList.add("hidden");
+            }, 200);
+        }, 250);
     });
 
-    mediaQuery.addEventListener("change", (e) => {
+    /*
+     * Cambios del sistema
+     */
+    mediaQuery.addEventListener("change", (event) => {
         if (!localStorage.getItem("theme")) {
-            html.classList.toggle("dark", e.matches);
-            updateIcon();
+            html.classList.toggle("dark", event.matches);
+            updateToggle();
         }
     });
 </script>

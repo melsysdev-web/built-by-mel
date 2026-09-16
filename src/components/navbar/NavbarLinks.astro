@@ -1,19 +1,61 @@
-<a class="text-sm font-medium hover:text-secondary transition-colors" href="#education">
-    Education
+---
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const translations = {
+    en: {
+        education: "Education",
+        projects: "Projects",
+        certifications: "Certifications",
+        expertise: "Expertise",
+        resume: "Resume",
+    },
+    es: {
+        education: "Educación",
+        projects: "Proyectos",
+        certifications: "Certificaciones",
+        expertise: "Experiencia",
+        resume: "Currículum",
+    },
+};
+
+const t = translations[lang];
+---
+
+<a
+    class="text-sm font-medium hover:text-secondary transition-colors"
+    href="#education"
+>
+    {t.education}
 </a>
 
-<a class="text-sm font-medium hover:text-secondary transition-colors" href="#projects">
-    Projects
+<a
+    class="text-sm font-medium hover:text-secondary transition-colors"
+    href="#projects"
+>
+    {t.projects}
 </a>
 
-<a class="text-sm font-medium hover:text-secondary transition-colors" href="#certifications">
-    Certifications
+<a
+    class="text-sm font-medium hover:text-secondary transition-colors"
+    href="#certifications"
+>
+    {t.certifications}
 </a>
 
-<a class="text-sm font-medium hover:text-secondary transition-colors" href="#expertise">
-    Expertise
+<a
+    class="text-sm font-medium hover:text-secondary transition-colors"
+    href="#expertise"
+>
+    {t.expertise}
 </a>
 
-<a class="px-5 py-2 rounded-lg bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-all" href="#contact">
-    Resume
+<a
+    class="px-5 py-2 rounded-lg bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-all"
+    href="#contact"
+>
+    {t.resume}
 </a>

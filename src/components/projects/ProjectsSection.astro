@@ -5,65 +5,134 @@ import project1 from "../../assets/project1.webp";
 import project2 from "../../assets/projectv2.webp";
 import project3 from "../../assets/chatbot.webp";
 
-const projects = [
+interface Props {
+    lang?: "en" | "es";
+}
+
+interface ProjectTranslation {
+    title: string;
+    description: string;
+}
+
+interface Project {
+    image: ImageMetadata;
+    alt: string;
+    tags: string[];
+    en: ProjectTranslation;
+    es: ProjectTranslation;
+}
+
+const { lang = "en" } = Astro.props;
+
+const projects: Project[] = [
     {
-        title: "Development Team Website",
-        description:
-            "Modern development team website built with Astro, featuring a responsive interface, clean component architecture, and a performance-focused design.",
         image: project1,
         alt: "Development team website interface",
         tags: ["ASTRO", "CSS", "JAVASCRIPT", "COLLABORATIVE", "TAILWIND"],
+
+        en: {
+            title: "Development Team Website",
+            description:
+                "Modern development team website built with Astro, featuring a responsive interface, clean component architecture, and a performance-focused design.",
+        },
+
+        es: {
+            title: "Sitio Web para Equipo de Desarrollo",
+            description:
+                "Sitio web moderno para un equipo de desarrollo creado con Astro, con una interfaz responsive, arquitectura de componentes limpia y un diseño enfocado en el rendimiento.",
+        },
     },
+
     {
-        title: "AI Phishing Detection Extension",
-        description:
-            "AI-powered browser extension designed to detect phishing websites by analyzing URLs and identifying potential security threats in real time.",
         image: project2,
         alt: "AI phishing detection browser extension",
         tags: ["PYTHON", "JAVASCRIPT", "DOCKER", "AI", "COLLABORATIVE"],
+
+        en: {
+            title: "AI Phishing Detection Extension",
+            description:
+                "AI-powered browser extension designed to detect phishing websites by analyzing URLs and identifying potential security threats in real time.",
+        },
+
+        es: {
+            title: "Extensión de Detección de Phishing con IA",
+            description:
+                "Extensión de navegador impulsada por IA que detecta sitios web de phishing mediante el análisis de URLs e identificación de posibles amenazas de seguridad en tiempo real.",
+        },
     },
-     {
-        title: "Technology Store AI Chatbot",
-        description:
-            "AI-powered chatbot built with Python to assist customers with technology products, answer questions, and provide personalized recommendations.",
+
+    {
         image: project3,
         alt: "AI chatbot for a technology store",
         tags: ["PYTHON", "AI", "NLP"],
+
+        en: {
+            title: "Technology Store AI Chatbot",
+            description:
+                "AI-powered chatbot built with Python to assist customers with technology products, answer questions, and provide personalized recommendations.",
+        },
+
+        es: {
+            title: "Chatbot con IA para Tienda de Tecnología",
+            description:
+                "Chatbot impulsado por IA desarrollado con Python para asistir a clientes de una tienda de tecnología, responder preguntas y ofrecer recomendaciones personalizadas.",
+        },
     },
 ];
+
+const translations = {
+    en: {
+        title: "Selected Projects",
+        description:
+            "Technical solutions for real-world challenges.",
+        section: "02 / PROJECTS",
+    },
+
+    es: {
+        title: "Proyectos Destacados",
+        description:
+            "Soluciones técnicas para desafíos del mundo real.",
+        section: "02 / PROYECTOS",
+    },
+};
+
+const t = translations[lang];
 ---
 
 <section class="max-w-6xl mx-auto px-6 py-24" id="projects">
-
     <div class="mb-16">
-
-        <!-- Fila superior: título + número de sección -->
         <div class="flex items-center justify-between">
             <h2 class="text-2xl font-bold text-foreground">
-                Selected Projects
+                {t.title}
             </h2>
 
             <span
                 class="text-[10px] md:text-xs font-mono text-surface-foreground/60 whitespace-nowrap"
             >
-                02 / ARCHITECTURE
+                {t.section}
             </span>
         </div>
 
-        <!-- Descripción de la sección -->
         <p class="text-surface-foreground mt-3 max-w-xl">
-            Technical solutions for complex distributed challenges.
+            {t.description}
         </p>
-
     </div>
 
-    <!-- Project grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
-            projects.map((project) => (
-                <ProjectCard {...project} />
-            ))
+            projects.map((project) => {
+                const content = project[lang];
+
+                return (
+                    <ProjectCard
+                        title={content.title}
+                        description={content.description}
+                        image={project.image}
+                        alt={project.alt}
+                        tags={project.tags}
+                    />
+                );
+            })
         }
     </div>
-
 </section>

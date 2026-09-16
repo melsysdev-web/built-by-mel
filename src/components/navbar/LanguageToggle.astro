@@ -1,0 +1,93 @@
+---
+const currentPath = Astro.url.pathname;
+const isSpanish = currentPath.startsWith("/es");
+---
+
+<button
+    id="language-toggle"
+    class="relative inline-flex items-center cursor-pointer"
+    aria-label={isSpanish ? "Change to English" : "Cambiar a español"}
+    type="button"
+>
+    <div
+        class="
+            relative
+            w-20
+            h-10
+            rounded-full
+            outline-none
+            border
+            border-border
+            bg-surface
+            duration-100
+            overflow-hidden
+            transition-colors
+            hover:border-primary/50
+            focus:outline-none
+            focus:ring-2
+            focus:ring-primary/30
+        "
+    >
+        <!-- EN -->
+        <span
+            class:list={[
+                "absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-bold transition-opacity duration-300",
+                isSpanish
+                    ? "text-surface-foreground/40"
+                    : "text-surface-foreground/60",
+            ]}
+        >
+            EN
+        </span>
+
+        <!-- ES -->
+        <span
+            class:list={[
+                "absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold transition-opacity duration-300",
+                isSpanish
+                    ? "text-surface-foreground/40"
+                    : "text-surface-foreground/60",
+            ]}
+        >
+            ES
+        </span>
+
+        <!-- Language Indicator -->
+        <span
+            id="language-indicator"
+            class:list={[
+                "absolute top-1 left-1 size-8 rounded-full bg-primary text-background flex items-center justify-center text-[10px] font-bold transition-transform duration-500 ease-in-out z-10",
+                isSpanish && "translate-x-10",
+            ]}
+        >
+            {isSpanish ? "ES" : "EN"}
+        </span>
+    </div>
+</button>
+
+<script is:inline>
+    const languageBtn = document.getElementById("language-toggle");
+    const languageLoader = document.getElementById("language-loader");
+
+    languageBtn?.addEventListener("click", () => {
+        if (!languageLoader) return;
+
+        const currentPath = window.location.pathname;
+
+        // Evitar múltiples clics
+        languageBtn.setAttribute("disabled", "true");
+
+        // Mostrar loader
+        languageLoader.classList.remove("hidden");
+        languageLoader.classList.add("flex");
+
+        // Cambiar idioma después de mostrar el loader
+        setTimeout(() => {
+            if (currentPath.startsWith("/es")) {
+                window.location.href = "/";
+            } else {
+                window.location.href = "/es/";
+            }
+        }, 400);
+    });
+</script>
