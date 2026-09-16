@@ -6,8 +6,10 @@ import "@fontsource-variable/inter";
 import "@fontsource/material-icons-outlined";
 import ProjectsSection from "../components/projects/ProjectsSection.astro";
 import ExpertiseSection from "../components/expertise/ExpertiseSection.astro";
-import ExperienceSection from "../components/experience/ExperienceSection.astro";
+import CertificationSection from "../components/certification/Certifications.astro";
 import ContactSection from "../components/contact/ContactSection.astro";
+import EducationSection from "../components/education/EducationSection.astro";
+import Certifications from "../components/certification/Certifications.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -15,8 +17,9 @@ import ContactSection from "../components/contact/ContactSection.astro";
 
 <Layout>
 	<Hero />
+	<EducationSection />
 	<ProjectsSection />
 	<ExpertiseSection />
-	<ExperienceSection />
+	<CertificationSection />
 	<ContactSection />
 </Layout>

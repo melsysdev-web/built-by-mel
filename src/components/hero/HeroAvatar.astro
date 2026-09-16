@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import profile from "../../assets/profile1.png";
+import profile from "../../assets/profilev1.webp";
 ---
 
 <div class="relative group">
@@ -15,14 +15,14 @@ import profile from "../../assets/profile1.png";
 
   <!-- Avatar -->
   <div
-    class="relative size-28 rounded-full
+    class="relative size-52 rounded-full
            overflow-hidden z-10">
     <Image
       src={profile}
       alt="Professional headshot of a systems engineer"
-      width={400}
-      height={400}
-      class="w-full h-full object-cover"
+      width={600}
+      height={600}
+      class="w-full h-full object-cover object-[center_10%]"
     />
   </div>
 </div>
