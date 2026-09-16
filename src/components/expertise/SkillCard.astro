@@ -14,19 +14,32 @@ const { title, icon, items } = Astro.props;
 ---
 
 <div class="space-y-4">
+    <!-- Skill title -->
     <h4 class="text-foreground font-semibold flex items-center gap-2">
-        <span class="font-icon text-primary text-xl">{icon}</span>
+        <span class="font-icon text-primary text-xl">
+            {icon}
+        </span>
+
         {title}
     </h4>
 
+    <!-- Skills list -->
     <ul class="space-y-2 text-sm text-foreground/60">
         {
             items.map((item) => (
-                <li class="flex justify-between border-b border-border/40 pb-2">
+                <li
+                    class="flex items-center justify-between gap-4 border-b border-border/40 pb-2"
+                >
                     <span>{item.name}</span>
-                    <span class="text-primary/60">{item.level}</span>
+
+                    <span
+                        class="text-primary/60 text-xs font-mono whitespace-nowrap"
+                    >
+                        {item.level}
+                    </span>
                 </li>
             ))
         }
     </ul>
 </div>
+

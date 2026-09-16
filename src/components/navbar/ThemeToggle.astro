@@ -1,48 +1,63 @@
+---
+---
+
 <button
-  id="theme-toggle"
-  class="p-2 rounded-lg transition-colors duration-300 hover:bg-muted"
-  aria-label="Toggle theme">
-  <span id="theme-icon" class="font-icon text-xl"> dark_mode </span>
+    id="theme-toggle"
+    class="relative w-14 h-7 rounded-full border border-border bg-surface transition-colors duration-300 hover:border-primary/50"
+    aria-label="Toggle theme"
+    type="button"
+>
+    <span
+        id="theme-icon"
+        class="absolute top-1 left-1 size-5 rounded-full bg-primary text-background flex items-center justify-center font-icon text-sm transition-transform duration-300"
+    >
+        dark_mode
+    </span>
 </button>
 
 <script>
-  const html = document.documentElement;
-  const toggleBtn = document.getElementById("theme-toggle");
-  const icon = document.getElementById("theme-icon");
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const html = document.documentElement;
+    const toggleBtn = document.getElementById("theme-toggle");
+    const icon = document.getElementById("theme-icon");
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-  function updateIcon() {
-    if (!icon) return;
-    icon.textContent = html.classList.contains("dark")
-      ? "light_mode"
-      : "dark_mode";
-  }
+    function updateIcon() {
+        if (!icon) return;
 
-  function setTheme(theme: "dark" | "light") {
-    if (theme === "dark") {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+        const isDark = html.classList.contains("dark");
+
+        icon.textContent = isDark ? "dark_mode" : "light_mode";
+
+        icon.classList.toggle("translate-x-7", !isDark);
+        icon.classList.toggle("translate-x-0", isDark);
     }
+
+    function setTheme(theme: "dark" | "light") {
+        if (theme === "dark") {
+            html.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            html.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+
+        updateIcon();
+    }
+
     updateIcon();
-  }
 
-  // Estado inicial del icono
-  updateIcon();
+    toggleBtn?.addEventListener("click", () => {
+        const newTheme = html.classList.contains("dark")
+            ? "light"
+            : "dark";
 
-  // Click manual
-  toggleBtn?.addEventListener("click", () => {
-    const newTheme = html.classList.contains("dark") ? "light" : "dark";
-    setTheme(newTheme);
-  });
+        setTheme(newTheme);
+    });
 
-  // Cambio automático SOLO si el usuario no eligió manualmente
-  mediaQuery.addEventListener("change", (e) => {
-    if (!localStorage.getItem("theme")) {
-      html.classList.toggle("dark", e.matches);
-      updateIcon();
-    }
-  });
+    mediaQuery.addEventListener("change", (e) => {
+        if (!localStorage.getItem("theme")) {
+            html.classList.toggle("dark", e.matches);
+            updateIcon();
+        }
+    });
 </script>

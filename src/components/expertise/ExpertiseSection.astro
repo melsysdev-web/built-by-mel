@@ -3,49 +3,74 @@ import SkillCard from "./SkillCard.astro";
 
 const skills = [
     {
-        title: "Infrastructure",
-        icon: "cloud_queue",
+        title: "Backend Development",
+        icon: "code_blocks",
         items: [
-            { name: "Kubernetes & Orchestration", level: "Senior" },
-            { name: "Terraform & IaC", level: "Expert" },
-            { name: "CI/CD Pipelines", level: "Advanced" },
+            { name: "Python / FastAPI", level: "Advanced" },
+            { name: "REST APIs", level: "Intermediate" },
+            { name: "SQL & Databases", level: "Intermediate" },
         ],
     },
     {
-        title: "Development",
-        icon: "code_blocks",
+        title: "Artificial Intelligence",
+        icon: "psychology",
         items: [
-            { name: "Golang / Rust", level: "Expert" },
-            { name: "Distributed Systems", level: "Senior" },
-            { name: "System Performance", level: "Expert" },
+            { name: "Machine Learning", level: "Intermediate" },
+            { name: "AI Integration", level: "Intermediate" },
+            { name: "NLP", level: "Basic" },
+        ],
+    },
+    {
+        title: "Web Development",
+        icon: "language",
+        items: [
+            { name: "Astro / JavaScript", level: "Advanced" },
+            { name: "HTML / CSS / Tailwind", level: "Advanced" },
+            { name: "Laravel / PHP", level: "Advanced" },
+        ],
+    },
+    {
+        title: "Infrastructure & Networking",
+        icon: "lan",
+        items: [
+            { name: "Docker", level: "Intermediate" },
+            { name: "Git / GitHub", level: "Advanced" },
+            { name: "Computer Networking", level: "Intermediate" },
         ],
     },
 ];
 ---
 
-<section class="bg-surface-dark/20 py-24" id="expertise">
+<section class="bg-surface/20 py-24" id="expertise">
     <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col md:flex-row gap-16">
+            <!-- Section information -->
             <div class="md:w-1/3">
                 <h2 class="text-2xl font-bold text-foreground mb-4">
                     Core Expertise
                 </h2>
 
                 <p class="text-foreground/60 leading-relaxed mb-6">
-                    My technical stack is built on foundation of performance,
-                    observability, and robust security principles.
+                    My technical stack combines backend development, artificial
+                    intelligence, web technologies, and infrastructure to build
+                    reliable and scalable digital solutions.
                 </p>
 
                 <div
                     class="inline-flex items-center gap-2 text-primary font-medium text-sm"
                 >
                     <span class="font-icon text-base">verified</span>
-                    <span>Certified Solutions Architect</span>
+                    <span>Systems Engineering</span>
                 </div>
             </div>
 
+            <!-- Skills -->
             <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-10">
-                {skills.map((skill) => <SkillCard {...skill} />)}
+                {
+                    skills.map((skill) => (
+                        <SkillCard {...skill} />
+                    ))
+                }
             </div>
         </div>
     </div>
