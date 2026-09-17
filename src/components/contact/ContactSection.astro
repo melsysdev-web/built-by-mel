@@ -1,21 +1,46 @@
 ---
 import ContactCTA from "./ContactCTA.astro";
 import ContactSocials from "./ContactSocials.astro";
+
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const translations = {
+    en: {
+        button: "Let's Talk",
+    },
+    es: {
+        button: "Hablemos",
+    },
+};
+
+const t = translations[lang];
 ---
 
-<section class="max-w-6xl mx-auto px-6 py-32 border-border" id="contact">
+<section
+    class="max-w-6xl mx-auto px-6 py-32 border-border"
+    id="contact"
+>
     <div
-        class="bg-surface rounded-2xl p-10 md:p-20 text-center border border-border flex flex-col items-center">
-        <ContactCTA />
+        class="bg-surface rounded-2xl p-10 md:p-20 text-center border border-border flex flex-col items-center"
+    >
+        <ContactCTA lang={lang} />
 
         <div class="flex flex-col sm:flex-row items-center gap-6">
+
+            <!-- Contact Button -->
             <a
                 class="flex items-center gap-3 px-10 py-4 rounded-xl bg-primary text-secondary-foreground font-bold text-lg hover:shadow-[0_0_30px_rgba(6,208,249,0.4)] transition-all group"
-                href="mailto:alex@example.com">
-                <span>Let's Talk</span>
+                href="mailto:alex@example.com"
+            >
+                <span>{t.button}</span>
 
                 <span
-                    class="font-icon text-xl group-hover:translate-x-1 transition-transform">
+                    class="font-icon text-xl group-hover:translate-x-1 transition-transform"
+                >
                     alternate_email
                 </span>
             </a>
@@ -24,3 +49,4 @@ import ContactSocials from "./ContactSocials.astro";
         </div>
     </div>
 </section>
+

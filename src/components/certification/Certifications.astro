@@ -6,42 +6,107 @@ import Big from "../../assets/certifications/3.webp";
 import Rally from "../../assets/certifications/4.webp";
 import Clic from "../../assets/certifications/2.webp";
 
+interface Props {
+    lang?: "en" | "es";
+}
 
+const { lang = "en" } = Astro.props;
 
 const certifications = [
     {
-        title: "Python Essentials Cisco Networking Academy",
-        issuer: "Best Practices in Programming, Computer Programming, Python, Procedural Programming, Analytical Thinking, Basic Python Programming, Design, Develop, and Debug Scripts, Algorithmic Thinking, Entry-level",
-        year: "2026",
         image: Python,
         alt: "Python Essentials 1",
-        link: "#",
-    },
-    {
-        title: "Desarrollo con IA BIG School",
-        issuer: "Learning to program using Artificial Intelligence agents, prompts, workspace, quality triangle: context, model, and permissions.",
         year: "2026",
+        link: "#",
+
+        en: {
+            title: "Python Essentials Cisco Networking Academy",
+            issuer:
+                "Best practices in programming, computer programming, Python, procedural programming, analytical thinking, basic Python programming, and algorithmic thinking.",
+        },
+
+        es: {
+            title: "Python Essentials Cisco Networking Academy",
+            issuer:
+                "Buenas prácticas de programación, programación informática, Python, programación procedural, pensamiento analítico, programación básica en Python y pensamiento algorítmico.",
+        },
+    },
+
+    {
         image: Big,
-        alt: "Inicializacion desarrollo con IA",
-        link: "#",
-    },
-    {
-        title: "Rally Latinoamerica de INNOVACION",
-        issuer: "It is an international competition aimed at promoting open innovation among university students. It is conducted by multidisciplinary teams and simultaneously in Latin American countries over 28 consecutive hours.",
-        year: "2024",
-        image: Rally,
-        alt: "Rally Latinoamerica de INNOVACION",
-        link: "#",
-    },
-    {
-        title: "Congreso CLIC: Conectados hacia el futuro",
-        issuer: "BIG Impact of Artificial Intelligence on the Labor Market and Cybersecurity",
+        alt: "Inicialización desarrollo con IA",
         year: "2026",
-        image: Clic,
-        alt: "Inicializacion desarrollo con IA",
         link: "#",
+
+        en: {
+            title: "AI Development - BIG School",
+            issuer:
+                "Introduction to programming using artificial intelligence agents, prompts, workspaces, and the quality triangle: context, model, and permissions.",
+        },
+
+        es: {
+            title: "Desarrollo con IA - BIG School",
+            issuer:
+                "Introducción a la programación utilizando agentes de inteligencia artificial, prompts, espacios de trabajo y el triángulo de calidad: contexto, modelo y permisos.",
+        },
+    },
+
+    {
+        image: Rally,
+        alt: "Rally Latinoamericano de Innovación",
+        year: "2024",
+        link: "#",
+
+        en: {
+            title: "Latin American Innovation Rally",
+            issuer:
+                "International competition focused on promoting open innovation among university students through multidisciplinary teams over 28 consecutive hours.",
+        },
+
+        es: {
+            title: "Rally Latinoamericano de Innovación",
+            issuer:
+                "Competencia internacional orientada a promover la innovación abierta entre estudiantes universitarios mediante equipos multidisciplinarios durante 28 horas consecutivas.",
+        },
+    },
+
+    {
+        image: Clic,
+        alt: "Congreso CLIC: Conectados hacia el futuro",
+        year: "2026",
+        link: "#",
+
+        en: {
+            title: "CLIC Congress: Connected Towards the Future",
+            issuer:
+                "Conference focused on the impact of artificial intelligence on the labor market and cybersecurity.",
+        },
+
+        es: {
+            title: "Congreso CLIC: Conectados hacia el futuro",
+            issuer:
+                "Congreso enfocado en el impacto de la inteligencia artificial en el mercado laboral y la ciberseguridad.",
+        },
     },
 ];
+
+const translations = {
+    en: {
+        title: "Certifications & Credentials",
+        description:
+            "Professional certifications and credentials that support my technical skills and continuous learning.",
+        section: "03 / CREDENTIALS",
+    },
+
+    es: {
+        title: "Certificaciones y Credenciales",
+        description:
+            "Certificaciones y credenciales profesionales que respaldan mis competencias técnicas y mi aprendizaje continuo.",
+        section: "03 / CREDENCIALES",
+    },
+};
+
+const t = translations[lang];
 ---
 
 <section
@@ -51,26 +116,32 @@ const certifications = [
     <div class="flex items-center justify-between mb-16">
         <div>
             <h2 class="text-2xl font-bold text-foreground mb-2">
-                Certifications & Credentials
+                {t.title}
             </h2>
 
             <p class="text-surface-foreground max-w-xl">
-                Professional certifications and credentials that support my
-                technical skills and continuous learning.
+                {t.description}
             </p>
         </div>
 
         <span
             class="hidden md:block text-xs font-mono text-surface-foreground/60"
         >
-            03 / CREDENTIALS
+            {t.section}
         </span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
             certifications.map((certification) => (
-                <CertificationCard {...certification} />
+                <CertificationCard
+                    title={certification[lang].title}
+                    issuer={certification[lang].issuer}
+                    year={certification.year}
+                    image={certification.image}
+                    alt={certification.alt}
+                    link={certification.link}
+                />
             ))
         }
     </div>

@@ -1,17 +1,43 @@
+---
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const translations = {
+    en: {
+        copyright: "© 2026 Melvin Rodriguez. Built with Astro.",
+        role: "Systems Engineer",
+        developer: "Developer",
+        location: "El Salvador",
+    },
+
+    es: {
+        copyright: "© 2026 Melvin Rodriguez. Desarrollado con Astro.",
+        role: "Ingeniero en Sistemas",
+        developer: "Desarrollador",
+        location: "El Salvador",
+    },
+};
+
+const t = translations[lang];
+---
+
 <footer class="py-12 border-t border-border bg-surface">
     <div
         class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6"
     >
         <p class="text-sm text-surface-foreground/70">
-            © 2026 Melvin Rodriguez. Built with Astro.
+            {t.copyright}
         </p>
 
         <div
             class="flex items-center gap-6 text-xs font-mono text-surface-foreground/60 uppercase tracking-widest"
         >
-            <span>Systems Engineer</span>
-            <span>Developer</span>
-            <span>El Salvador</span>
+            <span>{t.role}</span>
+            <span>{t.developer}</span>
+            <span>{t.location}</span>
         </div>
     </div>
 </footer>

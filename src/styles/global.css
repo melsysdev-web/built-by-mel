@@ -19,7 +19,7 @@
     --color-secondary-foreground: var(--secondary-foreground);
     --color-surface: var(--surface);
     --color-surface-foreground: var(--surface-foreground);
-    --color-border: var(--color-border);
+    --color-border: var(--border);
 
     --font-display: var(--font-display);
     --font-icon: var(--font-icon);
@@ -30,51 +30,47 @@
 }
 
 /* =========================
-   Root Variables (Light Mode)
+   Root Variables
+   Light Mode
 ========================= */
 
 :root {
+    /* Main fonts */
+    --font-display: "Inter Variable", sans-serif;
+    --font-icon: "Material Symbols Outlined Variable", sans-serif;
+    --font-body: "Inter Variable", sans-serif;
 
-    /* Fuente principal para títulos grandes (hero, headings) */
-    --font-display: 'Inter Variable', sans-serif;
-
-    /* Fuente para iconos tipo Material Symbols */
-    --font-icon: 'Material Symbols Outlined Variable', sans-serif;
-
-    /* Fuente base para párrafos y texto general */
-    --font-body: 'Inter Variable', sans-serif;
-
-    /* Fondo principal del sitio (modo claro en este caso) */
+    /* Main background */
     --background: oklch(0.97 0.005 285);
 
-    /* Color principal del texto */
+    /* Main text */
     --foreground: oklch(0.13 0.03 285);
 
-    /* Color principal de marca --primary: oklch(73.469% 0.18261 153.931 / 0.595); */
+    /* Primary brand color */
     --primary: oklch(0.7 0.13 192);
 
-    /* Color del texto que va encima del primary (contraste) */
+    /* Text over primary */
     --primary-foreground: oklch(1 0 0);
 
-    /* Variante alternativa para botones secundarios o badges */
+    /* Secondary color */
     --secondary: oklch(0.77 0.13 192);
 
-    /* Texto encima del secondary */
+    /* Text over secondary */
     --secondary-foreground: oklch(0.13 0.03 285);
 
-    /* Fondo de cards, modulos o secciones elevadas */
+    /* Card / surface background */
     --surface: oklch(1 0 0);
 
-    /* Texto dentro de las superficies */
+    /* Text inside surfaces */
     --surface-foreground: oklch(0.13 0.03 285);
 
-    /* Color estándar para bordes, divisores e inputs */
-    --color-border: oklch(0.90 0.005 285);
+    /* Borders */
+    --border: oklch(0.90 0.005 285);
 
-    /* Glow suave (para hover en avatar, botones, etc.) */
+    /* Glow */
     --shadow-glow-value: 0 0 20px rgba(71, 37, 244, 0.3);
 
-    /* Sombra estilo glassmorphism (efecto vidrio) */
+    /* Glass shadow */
     --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
 }
 
@@ -83,38 +79,37 @@
 ========================= */
 
 .dark {
-
-    /* Fondo principal del sitio (oscuro) */
+    /* Main background */
     --background: oklch(13.124% 0.02981 281.494 / 0.973);
 
-    /* Color principal del texto */
+    /* Main text */
     --foreground: oklch(0.96 0.01 155);
 
-    /* Color principal de marca --primary: oklch(0.7 0.13 192); */
+    /* Primary brand color */
     --primary: oklch(0.7 0.13 192);
 
-    /* Color del texto que va encima del primary */
+    /* Text over primary */
     --primary-foreground: oklch(10.823% 0.02264 165.41);
 
-    /* Color secundario (para botones o elementos alternativos) */
+    /* Secondary color */
     --secondary: oklch(66.542% 0.08301 235.837 / 0.963);
 
-    /* Texto encima del secondary */
+    /* Text over secondary */
     --secondary-foreground: oklch(0.13 0.03 285);
 
-    /* Fondo de tarjetas, navbar o secciones elevadas */
+    /* Card / surface background */
     --surface: oklch(16.948% 0.04077 285.749 / 0.818);
 
-    /* Texto dentro de las tarjetas o superficies */
+    /* Text inside surfaces */
     --surface-foreground: oklch(51.523% 0.02197 285.573);
 
-    /* Color estándar para bordes */
-    --color-border: oklch(63.9% 0.0104 286.006 / 0.327);
+    /* Borders */
+    --border: oklch(63.9% 0.0104 286.006 / 0.327);
 
-    /* Sombra con efecto brillo (glow) */
+    /* Glow */
     --shadow-glow-value: 0 0 20px rgba(71, 37, 244, 0.4);
 
-    /* Sombra tipo vidrio (glass effect) */
+    /* Glass shadow */
     --shadow-glass-value: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
 }
 
@@ -127,16 +122,56 @@
 }
 
 /* =========================
-   Animaciones
+   Global Base
 ========================= */
 
-/* button Get in Touch*/
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100%;
+}
+
+/* =========================
+   Smooth Language Transition
+========================= */
+
+/*
+   IMPORTANT:
+   The transition is applied to body,
+   NOT html.
+
+   This prevents the fixed Navbar from
+   losing its correct positioning.
+*/
+
+body {
+    opacity: 1;
+    transition: opacity 250ms ease;
+}
+
+body.language-transition-out {
+    opacity: 0;
+}
+
+/* =========================
+   Section Scroll Offset
+========================= */
+
+[id] {
+    scroll-margin-top: 5rem;
+}
+
+/* =========================
+   Floating Animation
+   Get in Touch button
+========================= */
 
 @keyframes float {
-
     0%,
     100% {
-        transform: translateY(0px);
+        transform: translateY(0);
     }
 
     50% {
@@ -149,12 +184,24 @@
 }
 
 /* =========================
-   Global Styles
+   Accessibility
 ========================= */
 
-* {
-    transition:
-        background-color 0.3s ease,
-        border-color 0.3s ease,
-        color 0.2s ease;
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    body {
+        transition: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

@@ -1,42 +1,76 @@
+---
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const translations = {
+    en: {
+        education: "Education",
+        projects: "Projects",
+        certifications: "Certifications",
+        expertise: "Expertise",
+        resume: "Resume",
+    },
+    es: {
+        education: "Educación",
+        projects: "Proyectos",
+        certifications: "Certificaciones",
+        expertise: "Experiencia",
+        resume: "Currículum",
+    },
+};
+
+const t = translations[lang];
+---
+
 <nav
     id="mobile-menu"
     aria-hidden="true"
-    class="md:hidden hidden px-6 pb-6 bg-background bg-glass-panel border-t border-border"
+    class="md:hidden hidden px-6 pb-6 bg-glass-panel border-t border-border"
 >
     <div class="flex flex-col gap-2 pt-4">
+
+        <!-- Education -->
         <a
             class="mobile-link py-2 text-sm font-medium hover:text-secondary transition-colors"
             href="#education"
         >
-            Education
+            {t.education}
         </a>
 
-        <a
-            class="mobile-link py-2 text-sm font-medium hover:text-secondary transition-colors"
-            href="#experience"
-        >
-            Experience
-        </a>
-
+        <!-- Projects -->
         <a
             class="mobile-link py-2 text-sm font-medium hover:text-secondary transition-colors"
             href="#projects"
         >
-            Projects
+            {t.projects}
         </a>
 
+        <!-- Certifications -->
+        <a
+            class="mobile-link py-2 text-sm font-medium hover:text-secondary transition-colors"
+            href="#certifications"
+        >
+            {t.certifications}
+        </a>
+
+        <!-- Expertise -->
         <a
             class="mobile-link py-2 text-sm font-medium hover:text-secondary transition-colors"
             href="#expertise"
         >
-            Expertise
+            {t.expertise}
         </a>
 
+        <!-- Resume / Contact -->
         <a
             class="mobile-link py-2 text-sm font-medium hover:text-secondary transition-colors"
             href="#contact"
         >
-            Resume
+            {t.resume}
         </a>
+
     </div>
 </nav>

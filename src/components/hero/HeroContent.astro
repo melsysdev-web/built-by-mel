@@ -1,16 +1,40 @@
 ---
 import HeroButtons from "./HeroButtons.astro";
+
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
+
+const translations = {
+    en: {
+        title: "Systems Engineer",
+        description:
+            "Systems Engineer with a solid academic background and a clear focus on software development.",
+    },
+
+    es: {
+        title: "Ingeniero en Sistemas",
+        description:
+            "Ingeniero en Sistemas con una sólida formación académica y un enfoque definido en el desarrollo de software.",
+    },
+};
+
+const t = translations[lang];
 ---
 
 <div class="max-w-3xl space-y-6">
     <h1
-        class="text-4xl md:text-6xl font-bold tracking-tight text-primary font-display">
-        Systems Engineer
+        class="text-4xl md:text-6xl font-bold tracking-tight text-primary font-display"
+    >
+        {t.title}
     </h1>
 
-    <p class="text-xl md:text-2xl text-foreground font-body leading-relaxed">
-        Systems Engineer with a solid academic background and a clear focus on
-        software development.
+    <p
+        class="text-xl md:text-2xl text-foreground font-body leading-relaxed"
+    >
+        {t.description}
     </p>
 
     <HeroButtons />

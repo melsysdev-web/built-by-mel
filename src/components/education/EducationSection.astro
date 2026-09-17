@@ -1,56 +1,111 @@
 ---
 import AcademicBackground from "./AcademicBackground.astro";
+
 import logo1 from "../../assets/logo_azul_vertical.webp";
 import logo2 from "../../assets/infravenz.webp";
 
+interface Props {
+    lang?: "en" | "es";
+}
+
+const { lang = "en" } = Astro.props;
 
 const education = [
     {
-        degree: "Systems and Computer Networks Engineers",
-        institution: "Universidad Gerardo Barrios",
-        period: "2021 — PRESENT",
-        description:
-            "As a professional graduate in Systems and Computer Network Engineering, I developed the necessary skills to integrate technology within institutional processes, applying software development, implementation of computer networks, database administration and management, information security, server administration, IT project management, business intelligence, and emerging technologies to solve problems related to information, data, and communication associated with these processes; doing so critically, contributing to social development, and under an ethical approach.",
         logo: logo1,
-        alt: "Logo de la Universidad Gerardo Barrios",
         active: true,
-    },
-    {
-        degree: "Vocational Technical Baccalaureate in Software Development",
-        institution: "Instituto Nacional Profesor Francisco Ventura Zelaya",
-        period: "2018 — 2020",
-        description:
-            "I laid the foundations of my education by acquiring the skills for the analysis, design, implementation, and monitoring of enterprise software applications, applying technology oriented towards the web and mobile devices.",
-        logo: logo2,
         alt: "Logo de la Universidad Gerardo Barrios",
+
+        en: {
+            degree: "Systems and Computer Networks Engineer",
+            institution: "Universidad Gerardo Barrios",
+            period: "2021 — PRESENT",
+            description:
+                "As a professional graduate in Systems and Computer Network Engineering, I developed the necessary skills to integrate technology within institutional processes, applying software development, computer network implementation, database administration, information security, server administration, IT project management, business intelligence, and emerging technologies to solve problems related to information, data, and communication, contributing to social development through a critical and ethical approach.",
+        },
+
+        es: {
+            degree: "Ingeniería en Sistemas y Redes Informáticas",
+            institution: "Universidad Gerardo Barrios",
+            period: "2021 — ACTUALIDAD",
+            description:
+                "Como profesional graduado en Ingeniería en Sistemas y Redes Informáticas, desarrollé las competencias necesarias para integrar la tecnología en los procesos institucionales, aplicando desarrollo de software, implementación de redes informáticas, administración de bases de datos, seguridad de la información, administración de servidores, gestión de proyectos de TI, inteligencia de negocios y tecnologías emergentes para resolver problemas relacionados con la información, los datos y las comunicaciones, contribuyendo al desarrollo social desde un enfoque crítico y ético.",
+        },
+    },
+
+    {
+        logo: logo2,
         active: false,
+        alt: "Logo del Instituto Nacional Profesor Francisco Ventura Zelaya",
+
+        en: {
+            degree: "Vocational Technical Baccalaureate in Software Development",
+            institution:
+                "Instituto Nacional Profesor Francisco Ventura Zelaya",
+            period: "2018 — 2020",
+            description:
+                "I laid the foundations of my education by acquiring skills in the analysis, design, implementation, and monitoring of enterprise software applications, applying technology oriented toward web and mobile platforms.",
+        },
+
+        es: {
+            degree: "Bachillerato Técnico Vocacional en Desarrollo de Software",
+            institution:
+                "Instituto Nacional Profesor Francisco Ventura Zelaya",
+            period: "2018 — 2020",
+            description:
+                "Establecí las bases de mi formación adquiriendo competencias para el análisis, diseño, implementación y seguimiento de aplicaciones de software empresarial, aplicando tecnologías orientadas al desarrollo web y dispositivos móviles.",
+        },
     },
 ];
+
+const translations = {
+    en: {
+        title: "Education",
+        description: "Academic background and continuous learning.",
+        section: "01 / EDUCATION",
+    },
+
+    es: {
+        title: "Educación",
+        description: "Formación académica y aprendizaje continuo.",
+        section: "01 / EDUCACIÓN",
+    },
+};
+
+const t = translations[lang];
 ---
 
 <section class="max-w-6xl mx-auto px-6 py-24" id="education">
     <div class="flex items-center justify-between mb-16">
         <div>
             <h2 class="text-2xl font-bold text-foreground">
-                Education
+                {t.title}
             </h2>
 
             <p class="text-surface-foreground/70">
-                Academic background and continuous learning.
+                {t.description}
             </p>
         </div>
 
         <span
             class="hidden md:block text-xs font-mono text-surface-foreground/70"
         >
-            01 / EDUCATION
+            {t.section}
         </span>
     </div>
 
     <div class="space-y-12">
         {
             education.map((item) => (
-                <AcademicBackground {...item} />
+                <AcademicBackground
+                    degree={item[lang].degree}
+                    institution={item[lang].institution}
+                    period={item[lang].period}
+                    description={item[lang].description}
+                    logo={item.logo}
+                    alt={item.alt}
+                    active={item.active}
+                />
             ))
         }
     </div>
