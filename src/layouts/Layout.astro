@@ -8,6 +8,7 @@ import "../styles/global.css";
 import Navbar from "../components/navbar/Navbar.astro";
 import Footer from "../components/footer/Footer.astro";
 import LanguageLoader from "../components/loader/LanguageLoader.astro";
+
 interface Props {
     lang?: "en" | "es";
 }
@@ -19,28 +20,59 @@ const { lang = "en" } = Astro.props;
 <html lang={lang} class="h-full w-full">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="icon" type="image/svg+xml" href="/mel.svg" />
         <link rel="icon" href="/mel.ico" />
-
         <meta name="generator" content={Astro.generator} />
+        <meta
+            name="description"
+            content="Portfolio of Melvin Rodriguez, Systems Engineer focused on software development, backend technologies, and intelligent applications."
+        />
 
         <title>Portfolio Melvin Rodriguez</title>
+
+        <!-- Material Symbols initialization -->
+        <script is:inline>
+            (() => {
+                const root = document.documentElement;
+                const font = '24px "Material Symbols Outlined Variable"';
+
+                const enableIcons = () => {
+                    root.classList.add("icons-ready");
+                };
+
+                if (document.fonts.check(font)) {
+                    enableIcons();
+                } else {
+                    document.fonts.load(font).then(enableIcons).catch(() => {
+                        // Keep icons hidden if the font fails to load.
+                    });
+                }
+            })();
+        </script>
 
         <!-- Theme initialization -->
         <script is:inline>
             (() => {
-                const theme = localStorage.getItem("theme");
+                const root = document.documentElement;
 
-                if (
-                    theme === "dark" ||
-                    (!theme &&
-                        window.matchMedia("(prefers-color-scheme: dark)").matches)
-                ) {
-                    document.documentElement.classList.add("dark");
-                } else {
-                    document.documentElement.classList.remove("dark");
+                try {
+                    const savedTheme = localStorage.getItem("theme");
+                    const prefersDark = window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches;
+
+                    const useDark =
+                        savedTheme === "dark" ||
+                        (savedTheme !== "light" && prefersDark);
+
+                    root.classList.toggle("dark", useDark);
+                } catch {
+                    root.classList.toggle(
+                        "dark",
+                        window.matchMedia("(prefers-color-scheme: dark)").matches
+                    );
                 }
             })();
         </script>
@@ -56,11 +88,9 @@ const { lang = "en" } = Astro.props;
 
                         event.preventDefault();
 
-                        document.documentElement.classList.add(
-                            "language-transition-out"
-                        );
+                        document.body.classList.add("language-transition-out");
 
-                        setTimeout(() => {
+                        window.setTimeout(() => {
                             window.location.href = href;
                         }, 250);
                     });
@@ -69,12 +99,12 @@ const { lang = "en" } = Astro.props;
         </script>
     </head>
 
-    <body
-        class="bg-background text-foreground font-body m-0 h-full w-full" >
+    <body class="m-0 min-h-full w-full bg-background font-body text-foreground">
         <LanguageLoader />
+
         <Navbar lang={lang} />
 
-        <main class="pt-20">
+        <main class="pt-16 sm:pt-20">
             <slot />
         </main>
 

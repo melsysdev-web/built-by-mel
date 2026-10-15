@@ -13,34 +13,34 @@ interface Props {
 const { lang = "en" } = Astro.props;
 ---
 
-<header
-    class="fixed inset-x-0 top-0 z-50 w-full border-b border-border bg-glass-panel"
->
-    <div
-        class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between"
-    >
+<header class="fixed inset-x-0 top-0 z-50 w-full border-b border-border bg-glass-panel">
+    <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-3 sm:h-20 sm:gap-4 sm:px-6">
+
         <!-- Brand -->
-        <NavbarBrand />
+        <div class="min-w-0 shrink">
+            <NavbarBrand />
+        </div>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-10">
+        <nav class="hidden items-center gap-10 md:flex">
             <NavbarLinks lang={lang} />
         </nav>
 
         <!-- Right Actions -->
-        <div class="flex items-center gap-4">
+        <div class="ml-auto flex shrink-0 items-center gap-1 sm:gap-3">
+
             <!-- Theme Toggle -->
-            <div class="flex items-center justify-center">
+            <div class="flex shrink-0 items-center justify-center">
                 <ThemeToggle />
             </div>
 
             <!-- Language Toggle -->
-            <div class="flex items-center justify-center">
+            <div class="flex shrink-0 items-center justify-center">
                 <LanguageToggle lang={lang} />
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center justify-center">
+            <div class="flex shrink-0 items-center justify-center md:hidden">
                 <MobileMenuButton />
             </div>
         </div>
@@ -53,15 +53,61 @@ const { lang = "en" } = Astro.props;
 <script is:inline>
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.getElementById("mobile-menu");
+    const mobileMenuIcon = document.getElementById("mobile-menu-icon");
     const mobileLinks = document.querySelectorAll(".mobile-link");
 
+    function setMobileMenu(open) {
+        if (!mobileMenuBtn || !mobileMenu) return;
+
+        mobileMenu.classList.toggle("hidden", !open);
+        mobileMenu.setAttribute("aria-hidden", String(!open));
+        mobileMenu.inert = !open;
+
+        mobileMenuBtn.setAttribute("aria-expanded", String(open));
+
+        if (mobileMenuIcon) {
+            mobileMenuIcon.textContent = open ? "close" : "menu";
+        }
+
+        mobileMenuBtn.setAttribute(
+            "aria-label",
+            open ? "Close navigation menu" : "Open navigation menu"
+        );
+
+        if (!open && mobileMenu.contains(document.activeElement)) {
+            mobileMenuBtn.focus();
+        }
+    }
+
+    // Initial state
+    setMobileMenu(false);
+
     mobileMenuBtn?.addEventListener("click", () => {
-        mobileMenu?.classList.toggle("hidden");
+        const isOpen =
+            mobileMenuBtn.getAttribute("aria-expanded") === "true";
+
+        setMobileMenu(!isOpen);
     });
 
+    // Close after selecting a section
     mobileLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            mobileMenu?.classList.add("hidden");
-        });
+        link.addEventListener("click", () => setMobileMenu(false));
+    });
+
+    // Close with Escape
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Escape" &&
+            mobileMenuBtn?.getAttribute("aria-expanded") === "true"
+        ) {
+            setMobileMenu(false);
+        }
+    });
+
+    // Close when switching to desktop layout
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+
+    desktopQuery.addEventListener("change", (event) => {
+        if (event.matches) setMobileMenu(false);
     });
 </script>

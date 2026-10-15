@@ -1,10 +1,11 @@
----
----
 
-<label class="ui-switch" aria-label="Toggle theme">
+<label class="ui-switch" aria-label="Cambiar tema">
     <input
         id="theme-toggle"
         type="checkbox"
+        role="switch"
+        aria-label="Modo oscuro"
+        aria-checked="false"
     />
 
     <span class="slider">
@@ -17,7 +18,6 @@
         --switch-bg: var(--color-border);
         --switch-width: 48px;
         --switch-height: 20px;
-
         --circle-diameter: 32px;
         --circle-bg: var(--color-primary);
         --circle-inset: calc(
@@ -29,7 +29,10 @@
     }
 
     .ui-switch input {
-        display: none;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
     }
 
     .slider {
@@ -49,12 +52,9 @@
     .slider .circle {
         top: calc(var(--circle-inset) * -1);
         left: 0;
-
         width: var(--circle-diameter);
         height: var(--circle-diameter);
-
         position: absolute;
-
         background: var(--circle-bg);
         border-radius: 50%;
 
@@ -68,15 +68,14 @@
             background-color 300ms ease;
 
         box-shadow:
-            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-            0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-            0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+            0 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0 1px 1px 0 rgba(0, 0, 0, 0.14),
+            0 1px 3px 0 rgba(0, 0, 0, 0.12);
     }
 
     /* Icono del sol */
     .slider .circle::after {
         content: "light_mode";
-
         font-family: "Material Symbols Outlined Variable";
         font-size: 17px;
         color: var(--color-background);
@@ -100,6 +99,12 @@
         content: "dark_mode";
     }
 
+    /* Foco accesible por teclado */
+    .ui-switch input:focus-visible + .slider {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 4px;
+    }
+
     /* Efecto al presionar */
     .ui-switch input:active + .slider .circle {
         transform: scale(0.88);
@@ -113,8 +118,8 @@
                 var(--color-primary) 15%,
                 transparent
             ),
-            0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-            0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+            0 2px 1px -1px rgba(0, 0, 0, 0.2),
+            0 1px 1px 0 rgba(0, 0, 0, 0.14);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -131,73 +136,62 @@
     const toggle = document.getElementById("theme-toggle");
     const loader = document.getElementById("page-loader");
 
-    const mediaQuery = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-    );
+    let changeTimeout;
+    let hideLoaderTimeout;
+
+    function readSavedTheme() {
+        try {
+            return localStorage.getItem("theme");
+        } catch {
+            return null;
+        }
+    }
 
     function updateToggle() {
         if (!toggle) return;
 
-        toggle.checked = html.classList.contains("dark");
+        const isDark = html.classList.contains("dark");
+        toggle.checked = isDark;
+        toggle.setAttribute("aria-checked", String(isDark));
     }
 
-    function setTheme(theme) {
-        if (theme === "dark") {
-            html.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        } else {
-            html.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
+    function setTheme(theme, persist = true) {
+        const isDark = theme === "dark";
 
+        html.classList.toggle("dark", isDark);
         updateToggle();
+
+        if (persist) {
+            try {
+                localStorage.setItem("theme", isDark ? "dark" : "light");
+            } catch {
+                // El tema sigue funcionando aunque el almacenamiento no esté disponible.
+            }
+        }
     }
 
-    /*
-     * Estado inicial
-     */
-    updateToggle();
+    // Claro por defecto; respeta una preferencia guardada.
+    const savedTheme = readSavedTheme();
+    setTheme(savedTheme === "dark" ? "dark" : "light", false);
 
-    /*
-     * Cambio manual
-     */
     toggle?.addEventListener("change", () => {
-        const newTheme = toggle.checked
-            ? "dark"
-            : "light";
+        const newTheme = toggle.checked ? "dark" : "light";
 
-        /*
-         * Mostrar loader
-         */
+        clearTimeout(changeTimeout);
+        clearTimeout(hideLoaderTimeout);
+
         if (loader) {
             loader.classList.remove("hidden");
             loader.classList.add("flex");
         }
 
-        /*
-         * Pequeña pausa para que
-         * la animación del loader sea visible
-         */
-        setTimeout(() => {
+        changeTimeout = setTimeout(() => {
             setTheme(newTheme);
 
-            /*
-             * Ocultar loader
-             */
-            setTimeout(() => {
+            hideLoaderTimeout = setTimeout(() => {
                 loader?.classList.remove("flex");
                 loader?.classList.add("hidden");
             }, 200);
         }, 250);
-    });
-
-    /*
-     * Cambios del sistema
-     */
-    mediaQuery.addEventListener("change", (event) => {
-        if (!localStorage.getItem("theme")) {
-            html.classList.toggle("dark", event.matches);
-            updateToggle();
-        }
     });
 </script>
