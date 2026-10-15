@@ -1,8 +1,15 @@
-<button
+
+ <button
     id="mobile-menu-btn"
-    class="text-primary p-2 rounded-lg transition-colors"
-    aria-label="Toggle navigation menu"
+    class="inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-primary transition-colors duration-200 hover:bg-primary/10 active:scale-95 active:bg-primary/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:hidden"
+    type="button"
+    aria-label="Open navigation menu"
     aria-expanded="false"
-    aria-controls="mobile-menu">
-    <span class="font-icon text-3xl">menu</span>
+    aria-controls="mobile-menu"
+>
+    <span
+        id="mobile-menu-icon"
+        class="font-icon inline-block text-3xl leading-none"
+        aria-hidden="true"
+    >menu</span>
 </button>

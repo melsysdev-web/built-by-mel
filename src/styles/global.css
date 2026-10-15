@@ -13,17 +13,21 @@
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);
+
     --color-surface: var(--surface);
     --color-surface-foreground: var(--surface-foreground);
+
     --color-border: var(--border);
 
-    --font-display: var(--font-display);
-    --font-icon: var(--font-icon);
-    --font-body: var(--font-body);
+    --font-display: "Inter Variable", sans-serif;
+    --font-icon: "Material Symbols Outlined Variable", sans-serif;
+    --font-body: "Inter Variable", sans-serif;
 
     --shadow-glow: var(--shadow-glow-value);
     --shadow-glass: var(--shadow-glass-value);
@@ -35,11 +39,6 @@
 ========================= */
 
 :root {
-    /* Main fonts */
-    --font-display: "Inter Variable", sans-serif;
-    --font-icon: "Material Symbols Outlined Variable", sans-serif;
-    --font-body: "Inter Variable", sans-serif;
-
     /* Main background */
     --background: oklch(0.97 0.005 285);
 
@@ -80,7 +79,7 @@
 
 .dark {
     /* Main background */
-    --background: oklch(13.124% 0.02981 281.494 / 0.973);
+    --background: oklch(12.135% 0.02254 282.521 / 0.973);
 
     /* Main text */
     --foreground: oklch(0.96 0.01 155);
@@ -131,25 +130,13 @@ html {
 
 body {
     min-height: 100%;
+    opacity: 1;
+    transition: opacity 250ms ease;
 }
 
 /* =========================
    Smooth Language Transition
 ========================= */
-
-/*
-   IMPORTANT:
-   The transition is applied to body,
-   NOT html.
-
-   This prevents the fixed Navbar from
-   losing its correct positioning.
-*/
-
-body {
-    opacity: 1;
-    transition: opacity 250ms ease;
-}
 
 body.language-transition-out {
     opacity: 0;
@@ -180,7 +167,16 @@ body.language-transition-out {
 }
 
 .animate-float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite;
+}
+
+/* =========================
+   Mobile Menu Icon Loading
+========================= */
+
+/* Prevent the menu ligature from appearing before the icon font loads */
+html:not(.icons-ready) #mobile-menu-icon {
+    visibility: hidden;
 }
 
 /* =========================

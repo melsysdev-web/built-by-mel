@@ -73,6 +73,8 @@ const isSpanish = currentPath.startsWith("/es");
         if (!languageLoader) return;
 
         const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
+        const currentSearch = window.location.search;
 
         // Evitar múltiples clics
         languageBtn.setAttribute("disabled", "true");
@@ -81,13 +83,18 @@ const isSpanish = currentPath.startsWith("/es");
         languageLoader.classList.remove("hidden");
         languageLoader.classList.add("flex");
 
-        // Cambiar idioma después de mostrar el loader
+        // Mantener la sección actual al cambiar de idioma
+        const isSpanish = currentPath.startsWith("/es");
+        const newPath = isSpanish
+            ? currentPath.replace(/^\/es(?=\/|$)/, "") || "/"
+            : `/es${currentPath === "/" ? "/" : currentPath}`;
+
+        const destination =
+            newPath + currentSearch + currentHash;
+
+        // Navegar después de mostrar el loader
         setTimeout(() => {
-            if (currentPath.startsWith("/es")) {
-                window.location.href = "/";
-            } else {
-                window.location.href = "/es/";
-            }
+            window.location.href = destination;
         }, 400);
     });
 </script>
