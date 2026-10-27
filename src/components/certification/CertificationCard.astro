@@ -1,3 +1,4 @@
+
 ---
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
@@ -11,87 +12,189 @@ interface Props {
     link?: string;
 }
 
-const { title, issuer, year, image, alt, link } = Astro.props;
+const { title, issuer, year, image, alt } = Astro.props;
 ---
 
-<div
-    class="group flex flex-col p-6 rounded-xl bg-surface border border-border
-    md:hover:border-primary/40
-    md:hover:-translate-y-1
-    shadow-sm
-    md:hover:shadow-md
-    transition-all duration-300"
+<article
+    class="group flex flex-col rounded-xl border border-border bg-surface p-5 shadow-sm transition-all duration-300 sm:p-6 md:hover:-translate-y-1 md:hover:border-primary/40 md:hover:shadow-md"
 >
     <!-- Certificate Image -->
     <div
-        class="relative w-full rounded-lg mb-6 overflow-hidden bg-background border border-border/50"
+        class="relative mb-6 w-full overflow-hidden rounded-lg border border-border/50 bg-background"
     >
         <Image
             src={image}
             alt={alt}
             loading="lazy"
-            class="w-full h-auto object-center md:grayscale md:group-hover:grayscale-0 md:group-hover:scale-[1.02] transition-all duration-500"
+            class="h-auto w-full object-contain object-center transition-all duration-500 md:grayscale md:group-hover:grayscale-0 md:group-hover:scale-[1.02]"
         />
 
-        <!-- Image overlay -->
+        <!-- Image Overlay -->
         <div
-            class="absolute inset-0 bg-primary/5 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            class="pointer-events-none absolute inset-0 bg-primary/5 opacity-0 transition-opacity duration-500 md:group-hover:opacity-100"
         ></div>
+
+        <!-- Eye Button -->
+        <button
+            type="button"
+            class="view-certificate absolute right-3 top-3 z-10 inline-flex size-10 items-center justify-center rounded-xl border border-border bg-surface/90 text-foreground shadow-sm backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-primary/10 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            aria-label={`View certificate: ${title}`}
+            title="View certificate"
+            data-image-src={image.src}
+            data-image-alt={alt}
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-5"
+                aria-hidden="true"
+            >
+                <path
+                    d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"
+                />
+                <circle cx="12" cy="12" r="3" />
+            </svg>
+        </button>
     </div>
 
     <!-- Certification Information -->
     <div class="flex-1">
-        <div class="flex items-start justify-between gap-4 mb-2">
+        <div class="mb-2 flex items-start justify-between gap-4">
             <h3
-                class="text-lg font-semibold text-foreground leading-snug
-                md:group-hover:text-primary
-                active:text-primary
-                transition-colors"
+                class="text-lg font-semibold leading-snug text-foreground transition-colors md:group-hover:text-primary"
             >
                 {title}
             </h3>
 
             <span
-                class="shrink-0 text-[10px] font-mono uppercase tracking-wider
-                text-primary/70 border border-primary/20
-                bg-primary/5 px-2 py-1 rounded"
+                class="shrink-0 rounded border border-primary/20 bg-primary/5 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-primary/70"
             >
                 Certified
             </span>
         </div>
 
-        <p class="text-sm text-surface-foreground/70 leading-relaxed">
+        <p class="text-sm leading-relaxed text-surface-foreground/70">
             {issuer}
         </p>
     </div>
 
     <!-- Footer -->
     <div
-        class="mt-6 pt-4 border-t border-border/40 flex items-center justify-between"
+        class="mt-6 flex items-center justify-between gap-3 border-t border-border/40 pt-4"
     >
-        <span
-            class="text-xs font-mono text-surface-foreground/60"
-        >
+        <span class="font-mono text-xs text-surface-foreground/60">
             {year}
         </span>
 
-        {
-            link && (
-                <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 text-xs font-medium
-                    text-primary hover:text-foreground
-                    transition-colors"
-                >
-                    <span>View credential</span>
+        <button
+            type="button"
+            class="view-certificate inline-flex min-h-10 items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-medium text-primary transition-colors hover:bg-primary/10 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            aria-label={`View certificate: ${title}`}
+            data-image-src={image.src}
+            data-image-alt={alt}
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-4"
+                aria-hidden="true"
+            >
+                <path
+                    d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"
+                />
+                <circle cx="12" cy="12" r="3" />
+            </svg>
 
-                    <span class="font-icon text-sm">
-                        arrow_outward
-                    </span>
-                </a>
-            )
-        }
+            <span>View</span>
+        </button>
     </div>
-</div>
+
+    <!-- Enlarged Image Modal -->
+    <dialog
+        class="certificate-modal m-auto max-h-[95dvh] max-w-[96vw] overflow-visible border-0 bg-transparent p-0 text-foreground backdrop:bg-black/85 backdrop:backdrop-blur-sm sm:max-w-[90vw] md:max-w-5xl"
+        aria-label={`Certificate preview: ${title}`}
+    >
+        <div class="relative flex max-h-[95dvh] items-center justify-center">
+            <button
+                type="button"
+                class="close-certificate absolute right-2 top-2 z-10 flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/70 text-white transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-3 sm:top-3"
+                aria-label="Close certificate preview"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="size-5"
+                    aria-hidden="true"
+                >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
+            </button>
+
+            <img
+                class="certificate-preview-image block max-h-[88dvh] max-w-[96vw] rounded-lg object-contain shadow-2xl sm:max-w-[90vw] md:max-w-5xl"
+                alt=""
+            />
+        </div>
+    </dialog>
+</article>
+
+<script>
+    document.querySelectorAll(".view-certificate").forEach((button) => {
+        if (button.getAttribute("data-ready") === "true") return;
+        button.setAttribute("data-ready", "true");
+
+        const card = button.closest("article");
+        const dialog = card?.querySelector(".certificate-modal");
+        const preview = dialog?.querySelector(".certificate-preview-image");
+        const closeButton = dialog?.querySelector(".close-certificate");
+
+        if (
+            !(dialog instanceof HTMLDialogElement) ||
+            !(preview instanceof HTMLImageElement) ||
+            !(closeButton instanceof HTMLButtonElement)
+        ) {
+            return;
+        }
+
+        button.addEventListener("click", () => {
+            const src = button.getAttribute("data-image-src");
+            const alt = button.getAttribute("data-image-alt") ?? "";
+
+            if (!src) return;
+
+            preview.src = src;
+            preview.alt = alt;
+            dialog.showModal();
+        });
+
+        closeButton.addEventListener("click", () => {
+            dialog.close();
+        });
+
+        dialog.addEventListener("click", (event) => {
+            if (event.target === dialog) {
+                dialog.close();
+            }
+        });
+
+        dialog.addEventListener("close", () => {
+            preview.removeAttribute("src");
+        });
+    });
+</script>
