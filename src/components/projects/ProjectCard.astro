@@ -1,3 +1,4 @@
+
 ---
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
@@ -8,36 +9,47 @@ interface Props {
     image: ImageMetadata;
     alt: string;
     tags: string[];
+    url?: string;
+    lang?: "en" | "es";
 }
 
-const { title, description, image, alt, tags } = Astro.props;
+const {
+    title,
+    description,
+    image,
+    alt,
+    tags,
+    url,
+    lang = "en",
+} = Astro.props;
+
+const viewLabel =
+    lang === "es" ? "Ver repositorio" : "View repository";
 ---
 
-<div
-    class="group flex flex-col p-6 rounded-xl bg-surface border border-border md:hover:border-primary/40 md:hover:-translate-y-1 shadow-sm md:hover:shadow-md transition-all duration-300"
+<article
+    class="group flex flex-col rounded-xl border border-border bg-surface p-6 shadow-sm transition-all duration-300 md:hover:-translate-y-1 md:hover:border-primary/40 md:hover:shadow-md"
 >
     <!-- Project Image -->
     <div
-        class="w-full h-48 flex items-center justify-center aspect-video rounded-lg mb-6 overflow-hidden md:grayscale md:group-hover:grayscale-0 transition-all duration-500"
+        class="relative mb-6 flex h-48 w-full items-center justify-center overflow-hidden rounded-lg border border-border/50 bg-background"
     >
         <Image
             src={image}
             alt={alt}
             loading="lazy"
-            class="w-full h-full object-contain object-center md:group-hover:scale-105 transition-transform duration-500"
+            class="h-full w-full object-contain object-center transition-transform duration-500 md:group-hover:scale-105"
         />
     </div>
 
     <!-- Project Information -->
     <h3
-        class="text-lg font-semibold text-foreground md:group-hover:text-primary active:text-primary transition-colors"
+        class="mb-2 text-lg font-semibold text-foreground transition-colors md:group-hover:text-primary"
     >
         {title}
     </h3>
 
-    <p
-        class="text-sm text-surface-foreground/70 mb-6 flex-1 leading-relaxed"
-    >
+    <p class="mb-6 flex-1 text-sm leading-relaxed text-surface-foreground/70">
         {description}
     </p>
 
@@ -46,11 +58,34 @@ const { title, description, image, alt, tags } = Astro.props;
         {
             tags.map((tag) => (
                 <span
-                    class="text-[10px] px-2 py-1 rounded bg-border text-surface-foreground font-mono"
+                    class="rounded bg-border px-2 py-1 font-mono text-[10px] text-surface-foreground"
                 >
                     {tag}
                 </span>
             ))
         }
     </div>
-</div>
+
+    <!-- Repository Link -->
+    {
+        url && (
+            <div class="mt-5 border-t border-border/40 pt-4">
+                <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${viewLabel}: ${title}`}
+                    class="inline-flex items-center gap-2 text-xs font-medium text-primary transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                >
+                    <span>{viewLabel}</span>
+                    <span
+                        class="font-icon text-sm"
+                        aria-hidden="true"
+                    >
+                        arrow_outward
+                    </span>
+                </a>
+            </div>
+        )
+    }
+</article>
